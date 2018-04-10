@@ -70,7 +70,22 @@ function checkPwd(string $input_pwd, $pwd) : bool
     return true;
 }
 
-function signInCheck() : bool
+/**
+ * arrayToTree [树形化数组]
+ *
+ * @author dear
+ * @param array $data
+ * @param string $pid
+ * @return array
+ */
+function arrayToTree(array $data, $pid='0') : array
 {
-
+    $res = [];
+    foreach($data as $key => $val){
+        if($val['pid'] == $pid){
+            $val['child'] = arrayToTree($data, $val['id']);
+            $res[] = $val;
+        }
+    }
+    return $res;
 }

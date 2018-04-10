@@ -11,10 +11,14 @@ namespace app\admin\controller;
 use app\common\controller\adminBase;
 
 class Index extends adminBase
-//class Index extends \think\Controller
 {
     public function index()
     {
+
+        // 菜单数据
+        $menuData = arrayToTree(model('Menu')->getMenu());
+
+        $this->assign('menu', $menuData);
         return $this->fetch();
     }
 
