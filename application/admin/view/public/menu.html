@@ -10,7 +10,7 @@
         {volist name="vo.child" id="child"}
             <?php $url = $child['url']?>
             <li>
-                <a class="J_menuItem" attr-url="{$child.url}" href="javascript:;" onclick='saveUrl("{:url(\"$url\")}")' data-index="0">{$child.title}</a>
+                <a class="J_menuItem" href="javascript:;" onclick='saveUrl("{:url(\"$url\")}")' data-index="0">{$child.title}</a>
             </li>
         {/volist}
     </ul>
@@ -19,6 +19,6 @@
 
 <script>
     function saveUrl(url){
-        window.location.href=url;
+        $('.J_iframe').attr('src', url);
     }
 </script>

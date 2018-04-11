@@ -48,7 +48,6 @@ class Login extends Controller
             \Cache::set('adminUid'.$uData['id'], json_encode($uData), config('_tokenExpiration'));// 服务端保存用户信息
             return ['code' => 200, 'msg' => '操作成功'];
         }
-
         return $this->fetch();
     }
 
