@@ -17,6 +17,15 @@ class Node extends adminBase
     public function index()
     {
 
+
+
+        return $this->fetch();
+    }
+
+
+    public function add()
+    {
+
         return $this->fetch();
     }
 

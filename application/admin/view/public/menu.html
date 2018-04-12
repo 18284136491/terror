@@ -1,24 +1,12 @@
 
 {volist name="menu" id="vo"}
 <li>
-    <a href="javascript:;">
-        <i class="fa fa-home"></i>
-        <span class="nav-label">{$vo.title}</span>
-        <span class="fa arrow"></span>
-    </a>
+    <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">{$vo.title} </span></a>
     <ul class="nav nav-second-level">
         {volist name="vo.child" id="child"}
             <?php $url = $child['url']?>
-            <li>
-                <a class="J_menuItem" href="javascript:;" onclick='saveUrl("{:url(\"$url\")}")' data-index="0">{$child.title}</a>
-            </li>
+            <li><a class="J_menuItem" href="{:url(\"$url\")}">{$child.title}</a></li>
         {/volist}
     </ul>
 </li>
 {/volist}
-
-<script>
-    function saveUrl(url){
-        $('.J_iframe').attr('src', url);
-    }
-</script>
