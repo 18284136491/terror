@@ -1,4 +1,4 @@
-<?php /*a:1:{s:74:"E:\phpStudy\PHPTutorial\WWW\terror\application\admin\view\token\index.html";i:1523793327;}*/ ?>
+<?php /*a:1:{s:74:"E:\phpStudy\PHPTutorial\WWW\terror\application\admin\view\token\index.html";i:1523973208;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -75,9 +75,9 @@
                             <thead>
                                 <tr>
                                     <th>id</th>
+                                    <th>地址</th>
                                     <th>token</th>
                                     <th>key</th>
-                                    <th>地址</th>
                                     <th>创建时间</th>
                                     <th>状态</th>
                                 </tr>
@@ -85,11 +85,10 @@
                             <tbody>
                                 <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
                                     <tr class="gradeX">
-
                                         <td><?php echo htmlentities($vo['id']); ?></td>
+                                        <td><?php echo htmlentities($vo['url']); ?></td>
                                         <td><?php echo htmlentities($vo['token']); ?></td>
                                         <td><?php echo htmlentities($vo['key']); ?></td>
-                                        <td><?php echo htmlentities($vo['url']); ?></td>
                                         <td><?php echo htmlentities($vo['time']); ?></td>
                                         <td><?php echo htmlentities($vo['status']); ?></td>
                                     </tr>

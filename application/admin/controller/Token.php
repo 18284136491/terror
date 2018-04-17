@@ -34,7 +34,6 @@ class Token extends Controller
         return $this->fetch();
     }
 
-
     /**
      * add [token生成]
      *
