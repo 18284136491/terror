@@ -1,4 +1,4 @@
-<?php /*a:4:{s:74:"E:\phpStudy\PHPTutorial\WWW\terror\application\admin\view\index\index.html";i:1523544357;s:76:"E:\phpStudy\PHPTutorial\WWW\terror\application\admin\view\public\header.html";i:1523543741;s:74:"E:\phpStudy\PHPTutorial\WWW\terror\application\admin\view\public\menu.html";i:1523544106;s:76:"E:\phpStudy\PHPTutorial\WWW\terror\application\admin\view\public\footer.html";i:1523366306;}*/ ?>
+<?php /*a:4:{s:74:"E:\phpStudy\PHPTutorial\WWW\terror\application\admin\view\index\index.html";i:1523544357;s:76:"E:\phpStudy\PHPTutorial\WWW\terror\application\admin\view\public\header.html";i:1523698879;s:74:"E:\phpStudy\PHPTutorial\WWW\terror\application\admin\view\public\menu.html";i:1523674068;s:76:"E:\phpStudy\PHPTutorial\WWW\terror\application\admin\view\public\footer.html";i:1523698844;}*/ ?>
 
 <!DOCTYPE html>
 <html>
@@ -93,7 +93,7 @@
                                 <li class="m-t-xs">
                                     <div class="dropdown-messages-box">
                                         <a href="profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="img/a7.jpg">
+                                            <img alt="image" class="img-circle" src="/static/Hplus-v.4.1.0/img/a7.jpg">
                                         </a>
                                         <div class="media-body">
                                             <small class="pull-right">46小时前</small>
@@ -107,7 +107,7 @@
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a href="profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="img/a4.jpg">
+                                            <img alt="image" class="img-circle" src="/static/Hplus-v.4.1.0/img/a4.jpg">
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right text-navy">25小时前</small>
