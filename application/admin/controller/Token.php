@@ -17,7 +17,6 @@ class Token extends Controller
 
     public function index()
     {
-
         $data = model('token')->getToken();
         $data = $data->each(function($val){
             if($val['status'] == 0){
@@ -25,7 +24,6 @@ class Token extends Controller
             }else{
                 $val['status'] = '启用';
             }
-
             $val['time'] = $val['time'] ? date('Y-m-d H:i:s',$val['time']) : 0;
             return $val;
         });
@@ -53,7 +51,7 @@ class Token extends Controller
         ];
         $url = $_SERVER['HTTP_HOST'] . PUBLIC_PATH . 'index.php/index/token/' . $token;
 
-        \Cache::set($token, json_encode($data));
+//        \Cache::set($token, json_encode($data));
 
         $result = [
             'token' => $token,
