@@ -89,3 +89,22 @@ function arrayToTree(array $data, $pid='0') : array
     }
     return $res;
 }
+
+/**
+ * getUuid [生成uuid]
+ *
+ * author dear
+ * @param $input_pwd
+ * @param $pwd
+ * @return bool
+ */
+function getUuid(string $prefix='') : string
+{
+    $str = md5(uniqid(mt_rand(), true));
+    $uuid  = substr($str,0,10) . '-';
+    $uuid .= substr($str,10,6) . '-';
+    $uuid .= substr($str,16,6) . '-';
+    $uuid .= substr($str,20);
+    return $prefix . $uuid;
+}
+

@@ -3,6 +3,7 @@
 namespace app\common\controller;
 
 use \think\Cache;
+use think\Db;
 
 class Base extends \think\Controller
 {
@@ -67,16 +68,6 @@ class Base extends \think\Controller
             response($result);
         }
 
-        // 重复请求验证
-        $request_count = \Cache::remember($param['token'] . $param['random'], 0, 10);
-        if($request_count < 4){
-            \Cache::Inc($param['token'] . $param['random']);
-        }else{
-            \Cache::rm($param['token'] . $param['random']);
-            $result = ['code' => '1003', 'msg' => '请不要重复请求'];
-            response($result);
-        }
-
         // 签名数据
         $check_arr = [
             'platform' => $param['platform'],
@@ -84,6 +75,10 @@ class Base extends \think\Controller
             'token' => $param['token'],
             'key' => $data['key']
         ];
+        ksort($check_arr);
+        $check_data = http_build_query($check_arr);
+        echo md5($check_data)."\n";
+        echo $param['sign'];die;
 
         // 签名验证
         if(!checkSign($check_arr,$param['sign'])){
