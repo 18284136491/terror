@@ -108,3 +108,59 @@ function getUuid(string $prefix='') : string
     return $prefix . $uuid;
 }
 
+
+/**
+ * arraySequence [二维数组根据字段进行排序]
+ *
+ * author dear
+ * @$array 要排序的数组
+ * @$field 排序字段名
+ * @$sort 顺序还是倒序
+ * @return bool
+ */
+function arraySequence($array, $field, $sort = 'SORT_DESC')
+{
+    $arrSort = array();
+    foreach ($array as $uniqid => $row) {
+        foreach ($row as $key => $value) {
+            $arrSort[$key][$uniqid] = $value;
+        }
+    }
+    array_multisort($arrSort[$field], constant($sort), $array);
+    return $array;
+}
+
+/**
+ * xmlToArray [xml转为array]
+ *
+ * author dear
+ * @$xml xml对象
+ * @return bool
+ */
+function xmlToArray($xml){
+    //将XML转为array
+    $array_data = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+    return $array_data;
+}
+
+/**
+ * arrayToXml [数组转xml对象]
+ *
+ * author dear
+ * @$xml 数组
+ * @return bool
+ */
+function arrayToXml($arr){
+    $xml = "<xml>";
+    foreach ($arr as $key=>$val){
+        if (is_numeric($val)){
+            $xml.="<".$key.">".$val."</".$key.">";
+        }else{
+            $xml.="<".$key."><![CDATA[".$val."]]></".$key.">";
+        }
+    }
+    $xml.="</xml>";
+    return $xml;
+}
+
+
