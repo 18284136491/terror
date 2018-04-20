@@ -163,4 +163,41 @@ function arrayToXml($arr){
     return $xml;
 }
 
+/**
+ * bubble_sort [二维数组冒泡排序]
+ *
+ * author dear
+ * @$xml 数组
+ * @return bool
+ */
+function bubble_sort($sort,$a,$type='asc'){//默认为正序排列
+    $len = count($a);
+    for($i=1;$i<$len;$i++){
+        for($j=$len-1;$j>=$i;$j--){
+            if($type === 'asc'){
+                if($a[$j] < $a[$j-1]){
+                    $x=$a[$j];
+                    $a[$j]=$a[$j-1];
+                    $a[$j-1]=$x;
+
+                    $y = $sort[$j];
+                    $sort[$j] = $sort[$j-1];
+                    $sort[$j-1] = $y;
+                }
+            }else{
+                if($a[$j] > $a[$j-1]){
+                    $x=$a[$j];
+                    $a[$j]=$a[$j-1];
+                    $a[$j-1]=$x;
+
+                    $y = $sort[$j];
+                    $sort[$j] = $sort[$j-1];
+                    $sort[$j-1] = $y;
+                }
+            }
+        }
+    }
+    return $sort;
+}
+
 
