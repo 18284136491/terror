@@ -19,7 +19,7 @@ class Config
 
         config('_phoneCodeExpiration', 300);// 短信验证码生存时间
 
-        config('_tokenExpiration', 7200);// token生存时间
+        config('_tokenExpiration', 3600);// token生存时间
 
         config('_originalKey', md5('dears'));// 原始key
 
