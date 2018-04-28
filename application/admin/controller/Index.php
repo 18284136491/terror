@@ -14,14 +14,11 @@ class Index extends adminBase
 {
     public function index()
     {
-
-
         return $this->fetch();
     }
 
     public function index_v1()
     {
-
         return $this->fetch();
     }
 

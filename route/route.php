@@ -13,14 +13,23 @@ Route::get('think', function () {
     return 'hello,ThinkPHP5!';
 });
 
+
+// 后台
+Route::get('signtoken', 'admin/sign_token/index');
+
+
+
+
+
+
+
+// 前台
 Route::post('index', 'index/index');
 Route::post('gettoken', 'token/getToken');// 获取token
 
 Route::post('signup', 'login/signup');// 注册
 Route::post('sendcode', 'login/sendcode');// 发送验证码
 Route::post('signin', 'login/signin');// 登录
-
-
 
 Route::post('memberinfo', 'member/getmemberinfo');// 获取用户信息
 Route::post('signout', 'member/signout');// 退出登录
