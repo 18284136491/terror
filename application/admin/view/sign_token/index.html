@@ -89,6 +89,19 @@
 </html>
 
 <script>
+
+
+    //防止页面后退
+    history.pushState(null, null, document.URL);
+    window.addEventListener('popstate', function () {
+        history.pushState(null, null, document.URL);
+    });
+    //禁止鼠标右键菜单
+    document.oncontextmenu = function(e){
+        return false;
+    }
+
+
     // 赋值
     var url = window.location.href;
     var url_param = url.split("signtoken/")[1];
@@ -96,7 +109,34 @@
     var key = url_param.split('/')[3];
     $('#token').val(token);
     $('#key').val(key);
+    // 禁止刷新
+    document.onkeydown = function(e){
+        // 禁止用F5键
+        e = window.event || e;
+        var keycode = e.keyCode || e.which;
+        if(keycode == 116){
+            e.returnValue = false;
+            e.preventDefault();
+        }
 
+        // 禁止用f12
+        if (window.event && window.event.keyCode == 123) {
+            event.keyCode = 0;
+            event.returnValue = false;
+            return false;
+        }
+
+        // Ctrl + R
+        if(e.ctrlKey && keycode == 82){
+            e.preventDefault();
+            window.event.returnValue= false;
+        }
+        // Ctrl + S
+        if(e.ctrlKey && keycode== 83){
+            e.preventDefault();
+            window.event.returnValue= false;
+        }
+    };
     function start(){
         var url = "{:url('start')}";
         var data = $('form').serialize();
@@ -146,6 +186,7 @@
 
         // 隐藏元素
         function hiddenElement(){
+            // todo 隐藏切换页面
             $('.input-group').hide();
             console.log('hide');
         }
