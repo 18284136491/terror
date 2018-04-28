@@ -16,6 +16,7 @@ Route::get('think', function () {
 
 // 后台
 Route::get('signtoken', 'admin/sign_token/index');
+Route::get('start', 'admin/sign_token/start');
 
 
 

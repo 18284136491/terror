@@ -38,34 +38,6 @@
                             </a>
                         </div>
                     </div>
-
-                    <div class="ibox-content">
-                        <form action="" method="post">
-                            <div class="row">
-                                <div class="col-sm-2 m-b-xs">
-                                    <select name="status" class=" form-control input-s-sm inline">
-                                        <option value="0" {eq name="$Think.post.status" value="0"}selected{/eq}>请选择</option>
-                                        <option value="1" {eq name="$Think.post.status" value="1"}selected{/eq}>未使用</option>
-                                        <option value="2" {eq name="$Think.post.status" value="2"}selected{/eq}>使用中</option>
-                                        <option value="3" {eq name="$Think.post.status" value="3"}selected{/eq}>已使用</option>
-                                    </select>
-                                </div>
-                                <div data-toggle="buttons" class="btn-group m-b-xs">
-                                    <input type="text" id="start" value="{$Think.post.start}" name="start" placeholder="开始时间" class="input form-control">
-                                </div>
-                                <div data-toggle="buttons" class="btn-group m-b-xs">
-                                    <input type="text" id="end" value="{$Think.post.end}" name="end" placeholder="结束时间" class="input form-control">
-                                </div>
-                                <div class="col-sm-3 pull-right">
-                                    <div class="input-group">
-                                        <input type="text" value="{$Think.post.token}" name="token" placeholder="请输入关键词" class="input form-control">
-                                        <span class="input-group-btn"><input  type="submit" class="btn btn-primary post-ajax"> 搜索</input > </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
                     <div class="ibox-content">
                         <table class="table table-bordered table-hover dataTables-example">
                             <thead>
@@ -78,30 +50,18 @@
                                     <th>状态</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                            {volist name='list' id="vo"}
-                            <tr class="gradeX">
-                                <td>{$vo.id}</td>
-                                <td>{$vo.name}</td>
-                                <td>{$vo.content}</td>
-                                <td>{$vo.pic}</td>
-                                <td>{$vo.music}</td>
-                            </tr>
-                            {/volist}
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>id</th>
-                                    <th>标题</th>
-                                    <th>简介</th>
-                                    <th>图片</th>
-                                    <th>背景音乐</th>
-                                </tr>
-                            </tfoot>
                         </table>
-                        {$list->render()}
-
                     </div>
+                </div>
+            </div>
+
+            <form action="">
+                <input type="text" value="" name="token" id="token">
+                <input type="text" value="" name="key" id="key">
+            </form>
+            <div class="col-sm-3 pull-right">
+                <div class="input-group">
+                    <span class="input-group-btn"><input type="submit" class="btn btn-primary" onclick="start()"> 开始</input > </span>
                 </div>
             </div>
         </div>
@@ -110,8 +70,6 @@
     <!-- 全局js -->
     <script src="__HPLUSSTATIC__/js/jquery.min.js?v=2.1.4"></script>
     <script src="__HPLUSSTATIC__/js/bootstrap.min.js?v=3.3.6"></script>
-
-
 
     <script src="__HPLUSSTATIC__/js/plugins/jeditable/jquery.jeditable.js"></script>
 
@@ -124,7 +82,75 @@
     <script type="text/javascript" src="__LAYER__/layer.js"></script>
     <script type="text/javascript" src="__LAYER__/laydate.js"></script>
     <script type="text/javascript" src="__STATIC__/postAjax.js"></script>
+    <script type="text/javascript" src="/jquery.js"></script>
 
 </body>
 
 </html>
+
+<script>
+    // 赋值
+    var url = window.location.href;
+    var url_param = url.split("signtoken/")[1];
+    var token = url_param.split('/')[1];
+    var key = url_param.split('/')[3];
+    $('#token').val(token);
+    $('#key').val(key);
+
+    function start(){
+        var url = "{:url('start')}";
+        var data = $('form').serialize();
+
+        $.ajax({
+            url : url,
+            data : data,
+            type : 'post',
+            before : hiddenElement(),
+            success : function(res){
+                console.log(res);
+                if(res.code != 200){
+                    console.log(res.msg);
+                    return false;
+                }
+
+                // todo 点击后立即展示图片。背景音乐
+                console.log(res.data[0].name);
+                console.log('点击后立即展示图片。背景音乐');
+
+                var i = 1;
+                // 计时器
+                var start = setInterval(function(){
+                    // todo 计时器展示图片。背景音乐
+                    console.log(res.data[i].name);
+                    console.log('计时器展示图片。背景音乐');
+
+                    if(i < res.count){
+                        i++;
+                    }
+                    if(i == res.count){
+                        var showElement = setInterval(function(){
+                            // todo 还原页面
+                            console.log('还原页面 再来一次');
+                            $('.input-group').show();
+                            clearInterval(showElement);
+                        }, 15000);
+                        clearInterval(start);
+                    }
+                }, 10000);
+            },
+            error : function(){
+                console.log('error');
+            }
+        });
+
+
+        // 隐藏元素
+        function hiddenElement(){
+            $('.input-group').hide();
+            console.log('hide');
+        }
+        return false;
+    }
+
+</script>
+

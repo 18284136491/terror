@@ -16,15 +16,33 @@ class SignToken extends Controller
 {
     public function index(\think\Request $request)
     {
+        return $this->fetch();
+    }
+
+    /**
+     * start [开始]
+     *
+     * Author dear
+     * @param \think\Request $request
+     */
+    public function start(\think\Request $request)
+    {
+
         // 验证token和key
         $this->paramCheck($request->param());
 
         $map = '';
         $map = 'status = 1';
-        $data = Db::name('commodity')->where($map)->paginate(1);
+        $data = Db::name('commodity')->where($map)->order('rand()')->limit(10)->select();
+        $count = Db::name('commodity')->where('status', 1)->count();
 
-        $this->assign('list', $data);
-        return $this->fetch();
+        $res = [
+            'code' => 200,
+            'data' => $data,
+            'count' => $count
+        ];
+
+        return $res;
     }
 
     /**
