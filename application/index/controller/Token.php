@@ -35,7 +35,8 @@ class Token extends \think\Controller
         };
 
         // token生成
-        $token = \Ramsey\Uuid\Uuid::uuid4()->toString();
+//        $token = \Ramsey\Uuid\Uuid::uuid4()->toString();
+        $token = getUuid();
 
         $key = uniqid();
         $data = [

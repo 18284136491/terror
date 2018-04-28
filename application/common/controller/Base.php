@@ -75,10 +75,6 @@ class Base extends \think\Controller
             'token' => $param['token'],
             'key' => $data['key']
         ];
-        ksort($check_arr);
-        $check_data = http_build_query($check_arr);
-        echo md5($check_data)."\n";
-        echo $param['sign'];die;
 
         // 签名验证
         if(!checkSign($check_arr,$param['sign'])){

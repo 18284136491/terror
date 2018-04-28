@@ -72,7 +72,7 @@ class Login extends \app\common\controller\Base
 
         // 登录验证
         if($data['uid']){
-            $result = ['code' => 1, 'msg' => '您已经登录了，请不要重复登录'];
+            $result = ['code' => 1, 'msg' => '您已经登录过了，请不要重复登录'];
             response($result);
         }
 
