@@ -34,7 +34,7 @@ class userBase extends Base
         }
 
         // 单点登录生存时间
-        \Cache::set($param['uid'], json_encode($data), config('_tokenExpiration'));
+        \Cache::set($data['uid'], json_encode($data), config('_tokenExpiration'));
     }
 
     protected function _init()
