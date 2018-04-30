@@ -124,6 +124,19 @@ function checkRedis()
     }
 }
 
+/**
+ * checkAdminLogin [检查是否登录]
+ *
+ * @author dear
+ */
+function checkAdminLogin()
+{
+    // 登录验证
+    if(!\Cache::get('adminUid'.cookie('userId'))){
+        return false;
+    }
+    return true;
+}
 
 /**
  * arraySequence [二维数组根据字段进行排序]

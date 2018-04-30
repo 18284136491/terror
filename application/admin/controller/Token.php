@@ -51,7 +51,7 @@ class Token extends Controller
             'key' => $key,
             'ip' => null,
         ];
-        $url = $_SERVER['HTTP_HOST'] . PUBLIC_PATH . 'index.php/index/token/' . $token;
+        $url = $_SERVER['HTTP_HOST'] . PUBLIC_PATH . 'signtoken/token/' . $token . '/key/' . $key;
 
         \Cache::set($token, json_encode($data));
 
@@ -65,7 +65,7 @@ class Token extends Controller
             'token' => $token,
             'key' => $key,
             'url' => $url,
-            'status' => 1,
+            'status' => 0,
             'time' => time(),
         ];
         $insRes = model('token')->addToken($insData);

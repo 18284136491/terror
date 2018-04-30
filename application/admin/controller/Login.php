@@ -22,7 +22,11 @@ class Login extends Controller
      */
     public function login(Request $request)
     {
-        $this->checkLogin();// 登录验证
+        // 登录验证
+        if(checkAdminLogin()){
+            $this->redirect(url('admin/index/index'));
+        }
+
         if($request->ispost()){
             $this->environmentAuth();// 检查环境
             $param = $request->post();
@@ -67,18 +71,4 @@ class Login extends Controller
             response($result);
         }
     }
-
-    /**
-     * checkLogin [登录验证]
-     *
-     * @author dear
-     */
-    private function checkLogin()
-    {
-        // 登录验证
-        if(cookie('userId')){
-            $this->redirect(url('admin/index/index'));
-        }
-    }
-
 }

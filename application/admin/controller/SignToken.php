@@ -76,7 +76,7 @@ class SignToken extends Controller
             \Cache::setExpire($param['token'], config('_tokenExpiration'));
 
             // 修改token使用状态
-            $update['status'] = ['eq', 1];
+            $update['status'] = 1;
             Db::name('token')->where('token', $param['token'])->update($update);
         }
     }
