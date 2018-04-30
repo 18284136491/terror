@@ -108,6 +108,22 @@ function getUuid(string $prefix='') : string
     return $prefix . $uuid;
 }
 
+/**
+ * checkRedis [检查cache是否启用]
+ *
+ * @author dear
+ */
+function checkRedis()
+{
+    // 检查redis是否启用
+    try{
+        \Cache::get('token');
+    } catch(\Exception $e){
+        $result = ['code' => '1001', 'msg' => 'Cache未启用'];
+        response($result);
+    }
+}
+
 
 /**
  * arraySequence [二维数组根据字段进行排序]

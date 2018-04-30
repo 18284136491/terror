@@ -7,7 +7,6 @@ class Token extends \think\Controller
     public function initialize()
     {
         $this->crossDomain();// 允许跨域
-        $this->environmentAuth();// 环境验证
     }
 
     /**
@@ -19,7 +18,14 @@ class Token extends \think\Controller
      */
     public function getToken(\think\Request $request) : string
     {
-        $param = $request->param();
+        checkRedis();// 环境验证
+
+        $param = $this->request->param();
+        // 参数验证
+        if(!$param['machine_model'] || !$param['access_type'] || !$param['key'] || !$param['sign']){
+            $result = ['code' => 10031, 'msg' => '参数错误'];
+            response($result);
+        }
 
         // 签名数据
         $check_data = [
@@ -66,28 +72,5 @@ class Token extends \think\Controller
         header('Access-Control-Allow-Headers:origin,x-requested-with,content-type');
         header('Access-Control-Max-Age:3600');
         header('X-Frame-Options:deny');
-    }
-
-    /**
-     * environmentAuth [环境检查]
-     *
-     * author dear
-     */
-    private function environmentAuth()
-    {
-        $param = $this->request->param();
-        // 参数验证
-        if(!$param['machine_model'] || !$param['access_type'] || !$param['key'] || !$param['sign']){
-            $result = ['code' => 10031, 'msg' => '参数错误'];
-            response($result);
-        }
-
-        // 检查redis是否启用
-        try{
-            \Cache::get($param['key']);
-        } catch(\Exception $e){
-            $result = ['code' => '1001', 'msg' => 'Cache未启用'];
-            response($result);
-        }
     }
 }

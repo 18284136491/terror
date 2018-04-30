@@ -16,22 +16,18 @@ Route::get('think', function () {
 
 // 后台
 Route::get('signtoken', 'admin/sign_token/index');
-Route::get('start', 'admin/sign_token/start');
-
-
-
-
+Route::post('start', 'admin/sign_token/start');
 
 
 
 // 前台
-Route::post('index', 'index/index');
-Route::post('gettoken', 'token/getToken');// 获取token
+Route::post('index', 'index/index/index');
+Route::post('gettoken', 'index/token/getToken');// 获取token
 
-Route::post('signup', 'login/signup');// 注册
-Route::post('sendcode', 'login/sendcode');// 发送验证码
-Route::post('signin', 'login/signin');// 登录
+Route::post('signup', 'index/login/signup');// 注册
+Route::post('sendcode', 'index/login/sendcode');// 发送验证码
+Route::post('signin', 'index/login/signin');// 登录
 
-Route::post('memberinfo', 'member/getmemberinfo');// 获取用户信息
-Route::post('signout', 'member/signout');// 退出登录
+Route::post('memberinfo', 'index/member/getmemberinfo');// 获取用户信息
+Route::post('signout', 'index/member/signout');// 退出登录
 

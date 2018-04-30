@@ -14,7 +14,7 @@ use think\Db;
 
 class SignToken extends Controller
 {
-    public function index(\think\Request $request)
+    public function index()
     {
         return $this->fetch();
     }
@@ -27,9 +27,13 @@ class SignToken extends Controller
      */
     public function start(\think\Request $request)
     {
+        $param = $request->post();
+        if(!isset($param['token']) || !isset($param['key'])){
+            return json_encode(['code' => 1001, 'msg' => '参数错误']);
+        }
 
         // 验证token和key
-        $this->paramCheck($request->param());
+        $this->paramCheck($param);
 
         $map = '';
         $map = 'status = 1';
@@ -41,7 +45,6 @@ class SignToken extends Controller
             'data' => $data,
             'count' => $count
         ];
-
         return $res;
     }
 
@@ -53,6 +56,8 @@ class SignToken extends Controller
      */
     private function paramCheck($param)
     {
+        // 检查cache是否开启
+        checkRedis();
         $data = json_decode(\Cache::get($param['token']), true);
 
         // 判断token值是否存在
@@ -64,6 +69,15 @@ class SignToken extends Controller
         if($param['key'] !== $data['key']){
             $result = ['code' => 1002, 'msg' => '签名错误'];
             response($result);
+        }
+
+        // 设置过期时间
+        if(\Cache::ttl($param['token']) < 0){
+            \Cache::setExpire($param['token'], config('_tokenExpiration'));
+
+            // 修改token使用状态
+            $update['status'] = ['eq', 1];
+            Db::name('token')->where('token', $param['token'])->update($update);
         }
     }
 

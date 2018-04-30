@@ -6,12 +6,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-    <title>title</title>
+    <title>惊心动魄</title>
     <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
     <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 
-    <link rel="shortcut icon" href="favicon.ico"> <link href="__HPLUSSTATIC__/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link rel="shortcut icon" href="/favicon.ico"> <link href="__HPLUSSTATIC__/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="__HPLUSSTATIC__/css/font-awesome.css?v=4.4.0" rel="stylesheet">
 
     <!-- Data Tables -->
@@ -20,53 +19,53 @@
     <link href="__HPLUSSTATIC__/css/animate.css" rel="stylesheet">
     <link href="__HPLUSSTATIC__/css/style.css?v=4.1.0" rel="stylesheet">
 
+    <style>
+        body{
+            /*background:url('__STATIC__/img/沙发上.png');*/
+            background:url('__STATIC__/img/沙发上1.png');
+            /*background:url('__STATIC__/img/趴地上.png');*/
+            filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')";
+            -moz-background-size:100% 100%;
+            background-size: 100% 100%;
+            background-repeat:no-repeat;
+        }
+    </style>
 </head>
 
 <body class="gray-bg">
-    <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>token列表 <small>分类，查找</small></h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                        <table class="table table-bordered table-hover dataTables-example">
-                            <thead>
-                                <tr>
-                                    <th>id</th>
-                                    <th>地址</th>
-                                    <th>token</th>
-                                    <th>key</th>
-                                    <th>创建时间</th>
-                                    <th>状态</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <form action="">
-                <input type="text" value="" name="token" id="token">
-                <input type="text" value="" name="key" id="key">
-            </form>
-            <div class="col-sm-3 pull-right">
-                <div class="input-group">
-                    <span class="input-group-btn"><input type="submit" class="btn btn-primary" onclick="start()"> 开始</input > </span>
-                </div>
-            </div>
-        </div>
+    <div class="reloads">
+        <audio controls="controls" class="hidden" autoplay src="__STATIC__/music/Try.mp3"></audio>
     </div>
+    <div class="text-center">
+        <form method="post" class="form-horizontal">
+            <div class="input-group" style="position:absolute;top:45%;">
+                <!--<div class="form-group">
+                    <label for="token" class="col-sm-4 control-label">token</label>
+                    <div class="col-sm-5">
+                        <input type="text" value="" class="form-control" name="token" id="token">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="key" class="col-sm-4 control-label">key</label>
+                    <div class="col-sm-5">
+                        <input type="text" value="" class="form-control" name="key" id="key">
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-primary btn-lg" onclick="start()">开 始</button>
+                    </div>
+                </div>
+-->
+                <input type="hidden" value="" class="form-control" name="token" id="token">
+                <input type="hidden" value="" class="form-control" name="key" id="key">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary btn-lg" onclick="start()">开 始</button>
+                </span>
+            </div>
+        </form>
+    </div>
     <!-- 全局js -->
     <script src="__HPLUSSTATIC__/js/jquery.min.js?v=2.1.4"></script>
     <script src="__HPLUSSTATIC__/js/bootstrap.min.js?v=3.3.6"></script>
@@ -78,11 +77,9 @@
     <script src="__HPLUSSTATIC__/js/plugins/dataTables/dataTables.bootstrap.js"></script>
 
     <!-- 自定义js -->
-    <script src="__HPLUSSTATIC__/js/content.js?v=1.0.0"></script>
     <script type="text/javascript" src="__LAYER__/layer.js"></script>
     <script type="text/javascript" src="__LAYER__/laydate.js"></script>
     <script type="text/javascript" src="__STATIC__/postAjax.js"></script>
-    <script type="text/javascript" src="/jquery.js"></script>
 
 </body>
 
@@ -92,11 +89,14 @@
     // 隐藏域赋值
     var url = window.location.href;
     var url_param = url.split("signtoken/")[1];
-    var token = url_param.split('/')[1];
-    var key = url_param.split('/')[3];
-    $('#token').val(token);
-    $('#key').val(key);
+    if(url_param){
+        var token = url_param.split('/')[1];
+        var key = url_param.split('/')[3];
+        $('#token').val(token);
+        $('#key').val(key);
+    }
 
+/*
 
     // 防止页面后退
     history.pushState(null, null, document.URL);
@@ -119,12 +119,12 @@
             e.preventDefault();
         }
 
-        /*// 禁止用f12
+        // 禁止用f12
         if (window.event && window.event.keyCode == 123) {
             event.keyCode = 0;
             event.returnValue = false;
             return false;
-        }*/
+        }
 
         // Ctrl + R
         if(e.ctrlKey && keycode == 82){
@@ -137,58 +137,68 @@
             window.event.returnValue= false;
         }
     };
+*/
 
     function start(){
-        var url = "{:url('start')}";
-        var data = $('form').serialize();
+        var url = "{:url('/start')}";// 请求地址
+        var data = $('form').serialize();// 请求参数
+        var type = $('form').attr('method');// 请求方式
 
         $.ajax({
             url : url,
             data : data,
-            type : 'post',
+            type : type,
             success : function(res){
-                console.log(res);
-                if(res.code != 200){
-                    console.log(res.msg);
+                if(res.code !== 200){
+                    layer.msg(res.msg);
                     return false;
                 }
 
-                // todo 隐藏并切换页面
-                $('.input-group').hide();
-                console.log('hide');
-
-
-                // todo 点击后立即展示图片。背景音乐
-                console.log(res.data[0].name);
-                console.log('点击后立即展示图片。背景音乐');
+                // todo 隐藏按钮、切换页面、背景音乐
+                $('.input-group').fadeToggle();
+                saveImg(res.data[0].pic);
+                saveMusic(res.data[0].music);
 
                 var i = 1;
                 // 计时器
                 var start = setInterval(function(){
-                    // todo 计时器展示图片。背景音乐
+                    // todo 计时器切换页面、背景音乐
+                    saveImg(res.data[i].pic);
+                    saveMusic(res.data[i].music);
+
                     console.log(res.data[i].name);
                     console.log('计时器展示图片。背景音乐');
-
                     if(i < res.count){
                         i++;
                     }
-                    if(i == res.count){
+                    if(i === res.count){
                         var showElement = setInterval(function(){
                             // todo 还原页面
-                            console.log('还原页面 再来一次');
-                            $('.input-group').show();
+                            // saveImg('img/沙发上1.png');
+                            // saveMusic('music/Try.mp3');
+
+                            layer.msg('还原页面 再来一次');
+                            $('.input-group').fadeToggle('show');
                             clearInterval(showElement);
                         }, 15000);
                         clearInterval(start);
                     }
-                }, 10000);
+                }, 15000);
             },
             error : function(){
-                console.log('error');
+                layer.msg('网络错误，请稍后再试');
             }
         });
-
         return false;
     }
 
+    // 切换背景图片
+    function saveImg(imgUrl){
+        $('body').css('background-image','url(__STATIC__/'+imgUrl+')');
+    }
+    // 切换背景音乐
+    function saveMusic(musicUrl){
+        htmls = '<audio controls="controls" class="hidden" autoplay src="__STATIC__/'+musicUrl+'"></audio>';
+        $('.reloads').html(htmls);
+    }
 </script>

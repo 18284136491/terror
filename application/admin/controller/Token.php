@@ -21,9 +21,9 @@ class Token extends Controller
         $data = model('token')->getToken();
         $data = $data->each(function($val){
             if($val['status'] == 0){
-                $val['status'] = '禁用';
+                $val['status'] = '未使用';
             }else{
-                $val['status'] = '启用';
+                $val['status'] = '已使用';
             }
 
             $val['time'] = $val['time'] ? date('Y-m-d H:i:s',$val['time']) : 0;

@@ -203,4 +203,36 @@ class Redis extends Driver
         return $this->handler->flushDB();
     }
 
+    /**
+     * ttl [获取缓存过期时间]
+     * @author dear
+     * @param $name
+     * @return bool|int
+     */
+    public function ttl($name)
+    {
+        $key = $this->getCacheKey($name);
+
+        $expiration = $this->handler->ttl($key);
+
+        if (is_null($expiration) || false === $expiration) {
+            return false;
+        }
+
+        return $expiration;
+    }
+
+    /**
+     * setExpire [设置缓存过期时间]
+     * @author dear
+     * @param $name
+     * @param null $expire
+     */
+    public function setExpire($name, $expire = null)
+    {
+        $key = $this->getCacheKey($name);
+
+        return $this->handler->expire($key, $expire);
+    }
+
 }

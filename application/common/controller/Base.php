@@ -36,20 +36,9 @@ class Base extends \think\Controller
      */
     private function environmentAuth()
     {
-        $param = $this->request->param();
-        // 参数验证
-        if(!$param['key'] || !$param['platform'] || !$param['random'] || !$param['token'] || !$param['sign']){
-            $result = ['code' => '1000', 'msg' => '非法的请求参数'];
-            response($result);
-        }
 
-        // 检查redis是否启用
-        try{
-            \Cache::get($param['token']);
-        } catch(\Exception $e){
-            $result = ['code' => '1001', 'msg' => 'Cache未启用'];
-            response($result);
-        }
+        // 检查cache是否开启
+        checkRedis();
     }
 
     /**
@@ -60,6 +49,12 @@ class Base extends \think\Controller
     private function checkToken()
     {
         $param = $this->request->param();// 获取参数
+        // 参数验证
+        if(!$param['key'] || !$param['platform'] || !$param['random'] || !$param['token'] || !$param['sign']){
+            $result = ['code' => '1000', 'msg' => '非法的请求参数'];
+            response($result);
+        }
+
         $data = json_decode(\Cache::get($param['token']), true);
 
         // 判断token值是否存在
