@@ -20,15 +20,14 @@ class Login extends Controller
      * @param Request $request
      * @return array|mixed
      */
-    public function login(Request $request)
+    public function index(Request $request)
     {
-        // 登录验证
-        if(checkAdminLogin()){
-            $this->redirect(url('admin/index/index'));
-        }
-
         if($request->ispost()){
-            $this->environmentAuth();// 检查环境
+            // 检查环境
+            if(!checkRedis()){
+                return ['code' => 1, 'msg' => 'Cache未启用'];
+            }
+
             $param = $request->post();
 
             // 参数验证
@@ -53,22 +52,5 @@ class Login extends Controller
             return ['code' => 200, 'msg' => '操作成功'];
         }
         return $this->fetch();
-    }
-
-
-    /**
-     * environmentAuth [环境检查]
-     *
-     * author dear
-     */
-    private function environmentAuth()
-    {
-        // 检查redis是否启用
-        try{
-            \Cache::get('username');
-        } catch(\Exception $e){
-            $result = ['code' => '1001', 'msg' => 'Cache未启用'];
-            response($result);
-        }
     }
 }

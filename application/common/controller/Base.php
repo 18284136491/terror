@@ -10,7 +10,6 @@ class Base extends \think\Controller
     public function initialize()
     {
         $this->crossDomain();// 允许跨域
-        $this->environmentAuth();// 环境验证
         $this->checkToken();// token验证
         $this->_initialize();// 初始化
     }
@@ -30,24 +29,18 @@ class Base extends \think\Controller
     }
 
     /**
-     * environmentAuth [环境检查]
-     *
-     * author dear
-     */
-    private function environmentAuth()
-    {
-
-        // 检查cache是否开启
-        checkRedis();
-    }
-
-    /**
      * checkToken [token验证]
      *
      * @author dear
      */
     private function checkToken()
     {
+        // 检查cache是否开启
+        if(!checkRedis()){
+            $result = ['code' => '1001', 'msg' => 'Cache未启用'];
+            response($result);
+        }
+
         $param = $this->request->param();// 获取参数
         // 参数验证
         if(!$param['key'] || !$param['platform'] || !$param['random'] || !$param['token'] || !$param['sign']){

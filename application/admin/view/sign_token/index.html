@@ -156,26 +156,23 @@
 
                 // todo 隐藏按钮、切换页面、背景音乐
                 $('.input-group').fadeToggle();
-                saveImg(res.data[0].pic);
-                saveMusic(res.data[0].music);
+                updateImg(res.data[0].pic);
+                updateMusic(res.data[0].music);
 
                 var i = 1;
                 // 计时器
                 var start = setInterval(function(){
                     // todo 计时器切换页面、背景音乐
-                    saveImg(res.data[i].pic);
-                    saveMusic(res.data[i].music);
-
-                    console.log(res.data[i].name);
-                    console.log('计时器展示图片。背景音乐');
+                    updateImg(res.data[i].pic);
+                    updateMusic(res.data[i].music);
                     if(i < res.count){
                         i++;
                     }
                     if(i === res.count){
                         var showElement = setInterval(function(){
                             // todo 还原页面
-                            // saveImg('img/沙发上1.png');
-                            // saveMusic('music/Try.mp3');
+                            // updateImg('img/沙发上1.png');
+                            // updateMusic('music/Try.mp3');
 
                             layer.msg('还原页面 再来一次');
                             $('.input-group').fadeToggle('show');
@@ -193,11 +190,12 @@
     }
 
     // 切换背景图片
-    function saveImg(imgUrl){
+    function updateImg(imgUrl){
         $('body').css('background-image','url(__STATIC__/'+imgUrl+')');
     }
+
     // 切换背景音乐
-    function saveMusic(musicUrl){
+    function updateMusic(musicUrl){
         htmls = '<audio controls="controls" class="hidden" autoplay src="__STATIC__/'+musicUrl+'"></audio>';
         $('.reloads').html(htmls);
     }

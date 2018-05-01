@@ -112,6 +112,7 @@ function getUuid(string $prefix='') : string
  * checkRedis [检查cache是否启用]
  *
  * @author dear
+ * @return bool
  */
 function checkRedis()
 {
@@ -119,15 +120,16 @@ function checkRedis()
     try{
         \Cache::get('token');
     } catch(\Exception $e){
-        $result = ['code' => '1001', 'msg' => 'Cache未启用'];
-        response($result);
+        return false;
     }
+    return true;
 }
 
 /**
  * checkAdminLogin [检查是否登录]
  *
  * @author dear
+ * @return bool
  */
 function checkAdminLogin()
 {

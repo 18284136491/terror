@@ -18,7 +18,11 @@ class Token extends \think\Controller
      */
     public function getToken(\think\Request $request) : string
     {
-        checkRedis();// 环境验证
+        // 检查环境
+        if(!checkRedis()){
+            $result = ['code' => '1001', 'msg' => 'Cache未启用'];
+            response($result);
+        }
 
         $param = $this->request->param();
         // 参数验证

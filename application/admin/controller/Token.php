@@ -8,32 +8,21 @@
 
 namespace app\admin\controller;
 
+use app\common\controller\adminBase;
 
-use think\Controller;
-use think\Db;
-
-class Token extends Controller
+class Token extends adminBase
 {
 
     public function index()
     {
-
         $data = model('token')->getToken();
-        $data = $data->each(function($val){
-            if($val['status'] == 0){
-                $val['status'] = '未使用';
-            }else{
-                $val['status'] = '已使用';
-            }
-
-            $val['time'] = $val['time'] ? date('Y-m-d H:i:s',$val['time']) : 0;
-            return $val;
-        });
+        foreach($data as &$val){
+            $val['status'] = $val['status'] ? '已使用' : '未使用';
+        }
 
         $this->assign('list', $data);
         return $this->fetch();
     }
-
 
     /**
      * add [token生成]
@@ -51,7 +40,7 @@ class Token extends Controller
             'key' => $key,
             'ip' => null,
         ];
-        $url = $_SERVER['HTTP_HOST'] . PUBLIC_PATH . 'signtoken/token/' . $token . '/key/' . $key;
+        $url = config('_signtoken') . 'token/' . $token . '/key/' . $key;
 
         \Cache::set($token, json_encode($data));
 

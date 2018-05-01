@@ -25,15 +25,20 @@ class adminBase extends Controller
      */
     private function baseData()
     {
+        // 检查环境
+        if(!checkRedis()){
+            $this->error('Cache未启用', url('login/index'));
+        }
+
+        // 登录验证
         if(!checkAdminLogin()){
-            $this->redirect(url('login/login'));
+            $this->redirect(url('login/index'));
         }
 
         // 菜单数据
         $menuData = arrayToTree(model('Menu')->getMenu());
         $this->assign('menu', $menuData);
     }
-
 
     protected function _init()
     {

@@ -8,7 +8,6 @@
 
 namespace app\admin\controller;
 
-
 use think\Controller;
 use think\Db;
 
@@ -57,12 +56,16 @@ class SignToken extends Controller
     private function paramCheck($param)
     {
         // 检查cache是否开启
-        checkRedis();
+        if(!checkRedis()){
+            $result = ['code' => '1001', 'msg' => 'Cache未启用'];
+            response($result);
+        }
+
         $data = json_decode(\Cache::get($param['token']), true);
 
         // 判断token值是否存在
         if(!$data){
-            $result = ['code' => '1001', 'msg' => 'token值不存在'];
+            $result = ['code' => '1002', 'msg' => 'token值不存在'];
             response($result);
         }
 
@@ -73,11 +76,27 @@ class SignToken extends Controller
 
         // 设置过期时间
         if(\Cache::ttl($param['token']) < 0){
-            \Cache::setExpire($param['token'], config('_tokenExpiration'));
-
+            Db::startTrans();
             // 修改token使用状态
             $update['status'] = 1;
-            Db::name('token')->where('token', $param['token'])->update($update);
+            $tokenUp = Db::name('token')->where('token', $param['token'])->update($update);
+
+            $time = time();
+            $addData = [
+                'order_num' => orderNumber(),
+                'token' => $param['token'],
+                'time' => $time,
+                'end_time' => $time - config('_tokenExpiration'),
+            ];
+            $orderAdd = Db::name('order')->insert($addData);
+
+            if(!$tokenUp || !$orderAdd){
+                Db::rollback();
+                $result = ['code' => '1003', 'msg' => '操作失败，请稍后再试'];
+                response($result);
+            }
+            Db::rollback();
+            \Cache::setExpire($param['token'], config('_tokenExpiration'));
         }
     }
 

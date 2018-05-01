@@ -23,6 +23,8 @@ class Config
 
         config('_originalKey', md5('dears'));// 原始key
 
+        config('_signtoken',$_SERVER['HTTP_HOST'] . PUBLIC_PATH . 'signtoken/');// token生成url前缀地址
+
     }
 
 }

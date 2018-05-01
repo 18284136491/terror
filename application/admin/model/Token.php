@@ -22,7 +22,7 @@ class Token extends Model
      */
     public function getToken($map = '')
     {
-        $res = Db::name('token')->order('time desc')->where($map)->paginate(20);
+        $res = Db::name('token')->order('time desc')->where($map)->select();
         return $res;
     }
 
