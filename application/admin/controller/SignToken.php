@@ -86,7 +86,7 @@ class SignToken extends Controller
                 'order_num' => orderNumber(),
                 'token' => $param['token'],
                 'time' => $time,
-                'end_time' => $time - config('_tokenExpiration'),
+                'end_time' => $time + config('_tokenExpiration'),
             ];
             $orderAdd = Db::name('order')->insert($addData);
 
@@ -95,7 +95,7 @@ class SignToken extends Controller
                 $result = ['code' => '1003', 'msg' => '操作失败，请稍后再试'];
                 response($result);
             }
-            Db::rollback();
+            Db::commit();
             \Cache::setExpire($param['token'], config('_tokenExpiration'));
         }
     }

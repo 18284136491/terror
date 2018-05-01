@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-04-28 18:49:48
+Date: 2018-05-01 22:53:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,9 +32,9 @@ CREATE TABLE `commodity` (
 -- ----------------------------
 -- Records of commodity
 -- ----------------------------
-INSERT INTO `commodity` VALUES ('1', '测试', '从前有座山', 'https://www.baidu.com/img/bd_logo1.png?qua=high', '', '1');
-INSERT INTO `commodity` VALUES ('2', '测试22', '从前有座山', 'https://www.baidu.com/img/bd_logo1.png?qua=high', '', '1');
-INSERT INTO `commodity` VALUES ('3', '测试33', '从前有座山', 'https://www.baidu.com/img/bd_logo1.png?qua=high', '', '1');
+INSERT INTO `commodity` VALUES ('1', '测试', '从前有座山', 'img/趴地上.png', 'music/Try.mp3', '1');
+INSERT INTO `commodity` VALUES ('2', '测试22', '从前有座山', 'img/沙发上.png', 'music/光阴的故事.mp3', '1');
+INSERT INTO `commodity` VALUES ('3', '测试33', '从前有座山', 'img/沙发上1.png', 'music/童年.mp3', '1');
 
 -- ----------------------------
 -- Table structure for menu
@@ -85,11 +85,13 @@ CREATE TABLE `order` (
   `time` int(10) NOT NULL COMMENT '订单创建时间（客户访问链接的时间）',
   `end_time` int(10) NOT NULL COMMENT '链接作废时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='订单表';
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
+INSERT INTO `order` VALUES ('1', '111', '34ca9c19ef-eb1e70-cfe6bf-bf11dbf7dad7', '1525175455', '1525182655');
+INSERT INTO `order` VALUES ('2', '111', '47520eea45-5d5d46-94f27b-7b00890b974d', '1525185098', '1525192298');
 
 -- ----------------------------
 -- Table structure for token
@@ -97,19 +99,20 @@ CREATE TABLE `order` (
 DROP TABLE IF EXISTS `token`;
 CREATE TABLE `token` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `url` varchar(80) NOT NULL COMMENT 'url地址',
+  `url` varchar(100) NOT NULL COMMENT 'url地址',
   `token` varchar(40) NOT NULL COMMENT 'token签名',
   `key` varchar(20) NOT NULL COMMENT 'token对应的key',
-  `status` tinyint(1) NOT NULL COMMENT 'token状态 0未使用 1已使用',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'token状态 0未使用 1已使用',
   `time` int(10) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `token` (`token`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='token表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='token表';
 
 -- ----------------------------
 -- Records of token
 -- ----------------------------
-INSERT INTO `token` VALUES ('1', 'www.terror.com/index.php/index/token/b3c273cadd-471a64-b990dd-dd934262a1ae', 'b3c273cadd-471a64-b990dd-dd934262a1ae', '5ad610372a342', '1', '1523978295');
+INSERT INTO `token` VALUES ('1', 'www.terror.com/signtoken/token/34ca9c19ef-eb1e70-cfe6bf-bf11dbf7dad7/key/5ae85497be4fd', '34ca9c19ef-eb1e70-cfe6bf-bf11dbf7dad7', '5ae85497be4fd', '1', '1525175447');
+INSERT INTO `token` VALUES ('2', 'www.terror.com/signtoken/token/47520eea45-5d5d46-94f27b-7b00890b974d/key/5ae87a3c02d9e', '47520eea45-5d5d46-94f27b-7b00890b974d', '5ae87a3c02d9e', '1', '1525185084');
 
 -- ----------------------------
 -- Table structure for user

@@ -22,7 +22,7 @@ class Order extends Model
      */
     public function getOrderList($map = '')
     {
-        $res = Db::name('order')->order('time desc')->where($map)->paginate(10);
+        $res = Db::name('order')->order('time desc')->where($map)->select();
         return $res;
     }
 

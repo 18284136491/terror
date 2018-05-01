@@ -60,20 +60,23 @@ class Order extends adminBase
 
         print_r($map);
         $data = model('order')->getOrderList($map);
-        $data = $data->each(function($val, $key){
-            $time = time();
-            if(!$val['time'] && !$val['end_time']){
-                $val['status'] = '未使用';
-            }elseif($val['time'] <= $time && $val['end_time'] >= $time){
-                $val['status'] = '使用中';
-            }else{
-                $val['status'] = '已使用';
-            }
-
-            $val['time'] = $val['time'] ? date('Y-m-d H:i:s',$val['time']) : 0;
-            $val['end_time'] = $val['end_time'] ? date('Y-m-d H:i:s',$val['end_time']) : 0;
-            return $val;
-        });
+        foreach($data as &$val){
+            $val['status'] = time() >= $val['end_time'] ? '已过期' : '未过期';
+        }
+//        $data = $data->each(function($val, $key){
+//            $time = time();
+//            if(!$val['time'] && !$val['end_time']){
+//                $val['status'] = '未使用';
+//            }elseif($val['time'] <= $time && $val['end_time'] >= $time){
+//                $val['status'] = '使用中';
+//            }else{
+//                $val['status'] = '已使用';
+//            }
+//
+//            $val['time'] = $val['time'] ? date('Y-m-d H:i:s',$val['time']) : 0;
+//            $val['end_time'] = $val['end_time'] ? date('Y-m-d H:i:s',$val['end_time']) : 0;
+//            return $val;
+//        });
 
         $this->assign('list', $data);
         return $this->fetch();

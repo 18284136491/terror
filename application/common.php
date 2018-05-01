@@ -140,6 +140,13 @@ function checkAdminLogin()
     return true;
 }
 
+
+function orderNumber()
+{
+    return '111';
+}
+
+
 /**
  * arraySequence [二维数组根据字段进行排序]
  *

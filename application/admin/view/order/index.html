@@ -85,8 +85,8 @@
                                         <td>{$vo.id}</td>
                                         <td>{$vo.order_num}</td>
                                         <td>{$vo.token}</td>
-                                        <td>{$vo.time}</td>
-                                        <td>{$vo.end_time}</td>
+                                        <td>{$vo.time|date='Y-m-d H:i:s'}</td>
+                                        <td>{$vo.end_time|date='Y-m-d H:i:s'}</td>
                                         <td>{$vo.status}</td>
                                     </tr>
                                 {/volist}
@@ -102,8 +102,6 @@
                                 </tr>
                             </tfoot>
                         </table>
-
-                        <div class="text-right">{$list|raw}</div>
                     </div>
                 </div>
             </div>
