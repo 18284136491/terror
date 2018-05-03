@@ -36,8 +36,8 @@ class SignToken extends Controller
 
         $map = '';
         $map = 'status = 1';
-        $data = Db::name('commodity')->where($map)->order('rand()')->limit(10)->select();
-        $count = Db::name('commodity')->where('status', 1)->count();
+        $data = Db::name('media')->where($map)->order('rand()')->limit(10)->select();
+        $count = Db::name('media')->where('status', 1)->count();
 
         $res = [
             'code' => 200,

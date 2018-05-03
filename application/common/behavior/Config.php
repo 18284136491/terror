@@ -25,6 +25,10 @@ class Config
 
         config('_signtoken',$_SERVER['HTTP_HOST'] . PUBLIC_PATH . 'signtoken/');// token生成url前缀地址
 
+        config('_picPath', __ROOTPATH__ . '\\static\\img');// 图片文件上传目录
+
+        config('_musicPath', __ROOTPATH__ . '\\static\\music');// 图片文件上传目录
+
     }
 
 }

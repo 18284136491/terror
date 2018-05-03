@@ -4,7 +4,8 @@
  *
  * @param actionUrl 跳转url地址
  */
-function postAjax(actionUrl = ''){
+function postAjax(actionUrl = '')
+{
     $(document).on('click', '.post-ajax', function(){
         var url = $('form').attr('action');
         var data = $('form').serialize();
@@ -39,7 +40,6 @@ function postAjax(actionUrl = ''){
     })
 }
 
-
 // 监听回车提交
 $(document).keyup(function(event){
     if(event.keyCode == 13){
@@ -52,7 +52,6 @@ $(document).keyup(function(event){
         $('submit').click();
     }
 });
-
 
 // 非标单提交方法
 function customPost(url, data='')
@@ -83,6 +82,56 @@ function customPost(url, data='')
 
 }
 
+// layer 弹出层
+function layerOpend(url, title)
+{
+    layer.open({
+        type: 2,
+        title: title,
+        area: ['68%', '70%'],
+        fix: false, //不固定
+        maxmin: true,
+        content: url
+    });
+}
 
+function postFile()
+{
+    $(document).on('click', '.post-file', function(){
+        var url = $('form').attr('action');
+        var data = new FormData($('#form')[0]);
+        $.ajax({
+            url : url,
+            data : data,
+            type : 'post',
+            dataType : 'json',
+            cache: false,
+            processData: false,
+            contentType: false,
+            success : function(res){
+                console.log(res);
+                return ;
+                if(res.code){
+                    // 返回错误代码，提示错误消息
+                    if(res.code !== 200){
+                        layer.msg(res.msg,{time: 1500});
+                        return false;
+                    }else if(res.code == 200){
+                        // 返回成功
+                        layer.msg(res.msg,{time: 1500},function(){
+                            if(actionUrl){
+                                // window.location.href = actionUrl;
+                            }
+                        });
+                    }
+                }
+                return false;
+            },
+            error : function(){
+                layer.msg('请求失败，请稍后再试',{time: 1000});
+            }
+        })
+    })
+}
 
 

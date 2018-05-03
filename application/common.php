@@ -142,8 +142,20 @@ function checkAdminLogin()
 
 
 function orderNumber()
-{
-    return '111';
+{//订购日期
+
+
+    //订单号码主体（YYYYMMDDHHIISSNNNNN）
+    $order_id_main = date('YmdHis') . rand(10000,99999);
+    //订单号码主体长度
+    $order_id_len = strlen($order_id_main);
+    $order_id_sum = 0;
+    for($i=0; $i<$order_id_len; $i++){
+        $order_id_sum += (int)(substr($order_id_main,$i,1));
+    }
+    //唯一订单号码（YYYYMMDDHHIISSNNNNNCC）
+    $orderNum = $order_id_main . str_pad((100 - $order_id_sum % 100) % 100,2,'0',STR_PAD_LEFT);
+    return $orderNum;
 }
 
 

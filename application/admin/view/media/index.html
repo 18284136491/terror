@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - 数据表格</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="__HPLUSSTATIC__/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__HPLUSSTATIC__/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="__HPLUSSTATIC__/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="__HPLUSSTATIC__/css/animate.css" rel="stylesheet">
+    <link href="__HPLUSSTATIC__/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>token列表 <small>分类，查找</small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="ibox-content">
+                        <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-2 m-b-xs">
+                                    <select name="status" class=" form-control input-s-sm inline">
+                                        <option value="0" {eq name="$Think.post.status" value="0"}selected{/eq}>请选择</option>
+                                        <option value="1" {eq name="$Think.post.status" value="1"}selected{/eq}>未使用</option>
+                                        <option value="2" {eq name="$Think.post.status" value="2"}selected{/eq}>使用中</option>
+                                        <option value="3" {eq name="$Think.post.status" value="3"}selected{/eq}>已使用</option>
+                                    </select>
+                                </div>
+                                <div data-toggle="buttons" class="btn-group m-b-xs">
+                                    <input type="text" id="start" value="{$Think.post.start}" name="start" placeholder="开始时间" class="input form-control">
+                                </div>
+                                <div data-toggle="buttons" class="btn-group m-b-xs">
+                                    <input type="text" id="end" value="{$Think.post.end}" name="end" placeholder="结束时间" class="input form-control">
+                                </div>
+                                <div class="col-sm-3 pull-right">
+                                    <div class="input-group">
+                                        <input type="text" value="{$Think.post.token}" name="token" placeholder="请输入关键词" class="input form-control">
+                                        <span class="input-group-btn"><input  type="submit" class="btn btn-primary post-ajax"> 搜索</input > </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="ibox-content">
+                        <div class=" m-b-xs">
+                            <button type="button" class="btn btn-primary" onclick='layerOpend("{:url(\"admin/media/add\")}", "添加图片")'>添加图片</button>
+                        </div>
+                        <table class="table table-bordered table-hover dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>标题</th>
+                                    <th>图片</th>
+                                    <th>音乐</th>
+                                    <th>类型</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {volist name="list" id="vo"}
+                                    <tr class="gradeX">
+                                        <td>{$vo.id}</td>
+                                        <td>{$vo.name}</td>
+                                        <td>{$vo.pic}</td>
+                                        <td>{$vo.music}</td>
+                                        <td>
+                                            {if condition="$vo.type eq 0"}
+                                                萌萌哒
+                                            {elseif condition="$vo.type eq 1"/}
+                                                动漫
+                                            {elseif condition="$vo.type eq 2"/}
+                                                恐怖
+                                            {/if}
+                                        </td>
+                                        <td>操作</td>
+                                    </tr>
+                                {/volist}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>id</th>
+                                    <th>标题</th>
+                                    <th>图片</th>
+                                    <th>音乐</th>
+                                    <th>类型</th>
+                                    <th>操作</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="__HPLUSSTATIC__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__HPLUSSTATIC__/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <script src="__HPLUSSTATIC__/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Data Tables -->
+    <script src="__HPLUSSTATIC__/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="__HPLUSSTATIC__/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- 自定义js -->
+    <script src="__HPLUSSTATIC__/js/content.js?v=1.0.0"></script>
+    <script type="text/javascript" src="__LAYER__/layer.js"></script>
+    <script type="text/javascript" src="__LAYER__/laydate.js"></script>
+    <script type="text/javascript" src="__STATIC__/postAjax.js"></script>
+
+
+    <!-- Page-Level Scripts -->
+    <script>
+        // 时间插件-开始
+        laydate.render({
+            elem: '#start'
+        });
+        // 时间插件-结束
+        laydate.render({
+            elem: '#end'
+        });
+    </script>
+
+</body>
+
+</html>
