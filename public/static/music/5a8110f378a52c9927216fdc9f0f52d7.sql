@@ -10,29 +10,10 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-05-07 23:49:01
+Date: 2018-05-04 00:31:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for advertising
--- ----------------------------
-DROP TABLE IF EXISTS `advertising`;
-CREATE TABLE `advertising` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL COMMENT '标题',
-  `content` varchar(255) DEFAULT NULL COMMENT '描述',
-  `pic` varchar(80) NOT NULL COMMENT '图片',
-  `type` tinyint(1) NOT NULL COMMENT '广告类型',
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态 0下架 1上架',
-  `time` int(10) NOT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='广告表';
-
--- ----------------------------
--- Records of advertising
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for media
@@ -40,23 +21,21 @@ CREATE TABLE `advertising` (
 DROP TABLE IF EXISTS `media`;
 CREATE TABLE `media` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(20) NOT NULL COMMENT '标题',
+  `name` varchar(20) NOT NULL COMMENT '标题',
+  `content` varchar(255) DEFAULT NULL COMMENT '描述',
   `pic` varchar(80) NOT NULL COMMENT '图片',
   `music` varchar(80) NOT NULL COMMENT '背景音乐',
   `type` tinyint(1) NOT NULL COMMENT '商品类型 0萌萌哒 1动漫 2恐怖',
-  `content` varchar(255) DEFAULT NULL COMMENT '描述',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态 0下架 1上架',
-  `time` int(10) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='terror商品表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='terror商品表';
 
 -- ----------------------------
 -- Records of media
 -- ----------------------------
-INSERT INTO `media` VALUES ('1', '测试', 'img/趴地上.png', 'music/Try.mp3', '3', '从前有座山', '1', '0');
-INSERT INTO `media` VALUES ('2', '测试22', 'img/沙发上.png', 'music/光阴的故事.mp3', '3', '从前有座山', '1', '0');
-INSERT INTO `media` VALUES ('3', '测试33', 'img/沙发上1.png', 'music/童年.mp3', '3', '从前有座山', '1', '0');
-INSERT INTO `media` VALUES ('4', '萌萌哒的小姐姐', 'img/7b1536ca0e5e92b854c2a07167e51140.jpg', '', '5', '萌萌哒的小姐姐', '1', '1525675761');
+INSERT INTO `media` VALUES ('1', '测试', '从前有座山', 'img/趴地上.png', 'music/Try.mp3', '0', '1');
+INSERT INTO `media` VALUES ('2', '测试22', '从前有座山', 'img/沙发上.png', 'music/光阴的故事.mp3', '0', '1');
+INSERT INTO `media` VALUES ('3', '测试33', '从前有座山', 'img/沙发上1.png', 'music/童年.mp3', '0', '1');
 
 -- ----------------------------
 -- Table structure for menu
@@ -108,13 +87,12 @@ CREATE TABLE `order` (
   `time` int(10) NOT NULL COMMENT '订单创建时间（客户访问链接的时间）',
   `end_time` int(10) NOT NULL COMMENT '链接作废时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='订单表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='订单表';
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
 INSERT INTO `order` VALUES ('1', '201805032222454464046', '0baf030b51-578cca-667b1d-1dbf2497db46', '1525357365', '1525364565');
-INSERT INTO `order` VALUES ('2', '201805071450333010354', '5f4d0deeba-368ad2-b0b456-56a428004335', '1525675833', '1525683033');
 
 -- ----------------------------
 -- Table structure for token
@@ -129,7 +107,7 @@ CREATE TABLE `token` (
   `time` int(10) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `token` (`token`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='token表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='token表';
 
 -- ----------------------------
 -- Records of token
@@ -142,33 +120,6 @@ INSERT INTO `token` VALUES ('5', 'www.terror.com/signtoken/token/74d78e34c0-ddc3
 INSERT INTO `token` VALUES ('6', 'www.terror.com/signtoken/token/d672f3b83f-746bc2-cea27d-7d5e7ab0a3c9/key/5aeb21918c029', 'd672f3b83f-746bc2-cea27d-7d5e7ab0a3c9', '5aeb21918c029', '0', '1525358993');
 INSERT INTO `token` VALUES ('7', 'www.terror.com/signtoken/token/0d6a000f81-b614b5-12dc59-59384d251be3/key/5aeb21ac3400d', '0d6a000f81-b614b5-12dc59-59384d251be3', '5aeb21ac3400d', '0', '1525359020');
 INSERT INTO `token` VALUES ('8', 'www.terror.com/signtoken/token/ef1d53040e-ddbce3-56037a-7ad7859a6c52/key/5aeb222110c50', 'ef1d53040e-ddbce3-56037a-7ad7859a6c52', '5aeb222110c50', '0', '1525359137');
-INSERT INTO `token` VALUES ('9', 'www.terror.com/signtoken/token/90906535fd-646c86-3a4c7b-7bdafb2506de/key/5aeef469b2f39', '90906535fd-646c86-3a4c7b-7bdafb2506de', '5aeef469b2f39', '0', '1525609577');
-INSERT INTO `token` VALUES ('10', 'www.terror.com/signtoken/token/7aa53fd8fd-201342-1f8a30-3028ebfb8d81/key/5aeef4708719f', '7aa53fd8fd-201342-1f8a30-3028ebfb8d81', '5aeef4708719f', '0', '1525609584');
-INSERT INTO `token` VALUES ('11', 'www.terror.com/signtoken/token/f71f7ee362-fc7619-3fae95-95f990ce0a47/key/5aeef476054b8', 'f71f7ee362-fc7619-3fae95-95f990ce0a47', '5aeef476054b8', '0', '1525609590');
-INSERT INTO `token` VALUES ('12', 'www.terror.com/signtoken/token/5f4d0deeba-368ad2-b0b456-56a428004335/key/5aeff72ec5c5c', '5f4d0deeba-368ad2-b0b456-56a428004335', '5aeff72ec5c5c', '1', '1525675822');
-INSERT INTO `token` VALUES ('13', 'www.terror.com/signtoken/token/6018f9ff75-9e219f-2bcf7e-7e0a8d0381ce/key/5aeff778bfb9b', '6018f9ff75-9e219f-2bcf7e-7e0a8d0381ce', '5aeff778bfb9b', '0', '1525675896');
-INSERT INTO `token` VALUES ('14', 'www.terror.com/signtoken/token/8d85826216-e5cc56-438ebd-bd38adc1866a/key/5aeff79523df1', '8d85826216-e5cc56-438ebd-bd38adc1866a', '5aeff79523df1', '0', '1525675925');
-
--- ----------------------------
--- Table structure for type
--- ----------------------------
-DROP TABLE IF EXISTS `type`;
-CREATE TABLE `type` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL COMMENT '类型名',
-  `status` tinyint(1) NOT NULL COMMENT '类型状态',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='类型表';
-
--- ----------------------------
--- Records of type
--- ----------------------------
-INSERT INTO `type` VALUES ('1', '动漫', '1');
-INSERT INTO `type` VALUES ('2', '原画', '1');
-INSERT INTO `type` VALUES ('3', '萌宠', '1');
-INSERT INTO `type` VALUES ('4', '游戏', '1');
-INSERT INTO `type` VALUES ('5', 'cos', '1');
-INSERT INTO `type` VALUES ('6', '惊悚', '1');
 
 -- ----------------------------
 -- Table structure for user

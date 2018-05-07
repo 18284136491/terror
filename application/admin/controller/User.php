@@ -9,9 +9,9 @@
 namespace app\admin\controller;
 
 
-use app\common\controller\adminBase;
+use app\common\controller\AdminBase;
 
-class User extends adminBase
+class User extends AdminBase
 {
 
     public function index()

@@ -2,9 +2,9 @@
 
 namespace app\index\controller;
 
-use \app\common\controller\userBase;
+use \app\common\controller\UserBase;
 
-class Index extends userBase
+class Index extends UserBase
 {
 
     public function _init()

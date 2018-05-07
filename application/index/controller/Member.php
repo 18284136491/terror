@@ -8,9 +8,9 @@
 
 namespace app\index\controller;
 
-use \app\common\controller\userBase;
+use \app\common\controller\UserBase;
 
-class Member extends userBase
+class Member extends UserBase
 {
 
     public function _init()

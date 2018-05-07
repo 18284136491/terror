@@ -47,8 +47,8 @@ class Login extends Controller
                 return ['code' => 1, 'msg' => '密码错误'];
             }
 
-            cookie('userId', $uData['id'], config('_tokenExpiration'));// 本地保存用户uid
-            \Cache::set('adminUid'.$uData['id'], json_encode($uData), config('_tokenExpiration'));// 服务端保存用户信息
+            cookie('userId', $uData['id'], config('_adminExpiration'));// 本地保存用户uid
+            \Cache::set('adminUid'.$uData['id'], json_encode($uData), config('_adminExpiration'));// 服务端保存用户信息
             return ['code' => 200, 'msg' => '操作成功'];
         }
         return $this->fetch();

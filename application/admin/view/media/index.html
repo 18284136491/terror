@@ -43,22 +43,15 @@
                         <form action="" method="post">
                             <div class="row">
                                 <div class="col-sm-2 m-b-xs">
-                                    <select name="status" class=" form-control input-s-sm inline">
-                                        <option value="0" {eq name="$Think.post.status" value="0"}selected{/eq}>请选择</option>
-                                        <option value="1" {eq name="$Think.post.status" value="1"}selected{/eq}>未使用</option>
-                                        <option value="2" {eq name="$Think.post.status" value="2"}selected{/eq}>使用中</option>
-                                        <option value="3" {eq name="$Think.post.status" value="3"}selected{/eq}>已使用</option>
+                                    <select name="type" class=" form-control input-s-sm inline">
+                                        <option value="">请选择类型</option>
+                                        {volist name='typeList' id='type'}
+                                            <option value="{$type.id}" {eq name="$Think.post.type" value="$type.id"}selected{/eq}>{$type.name}</option>
+                                        {/volist}
                                     </select>
-                                </div>
-                                <div data-toggle="buttons" class="btn-group m-b-xs">
-                                    <input type="text" id="start" value="{$Think.post.start}" name="start" placeholder="开始时间" class="input form-control">
-                                </div>
-                                <div data-toggle="buttons" class="btn-group m-b-xs">
-                                    <input type="text" id="end" value="{$Think.post.end}" name="end" placeholder="结束时间" class="input form-control">
                                 </div>
                                 <div class="col-sm-3 pull-right">
                                     <div class="input-group">
-                                        <input type="text" value="{$Think.post.token}" name="token" placeholder="请输入关键词" class="input form-control">
                                         <span class="input-group-btn"><input  type="submit" class="btn btn-primary post-ajax"> 搜索</input > </span>
                                     </div>
                                 </div>
@@ -85,18 +78,10 @@
                                 {volist name="list" id="vo"}
                                     <tr class="gradeX">
                                         <td>{$vo.id}</td>
-                                        <td>{$vo.name}</td>
+                                        <td>{$vo.title}</td>
                                         <td>{$vo.pic}</td>
                                         <td>{$vo.music}</td>
-                                        <td>
-                                            {if condition="$vo.type eq 0"}
-                                                萌萌哒
-                                            {elseif condition="$vo.type eq 1"/}
-                                                动漫
-                                            {elseif condition="$vo.type eq 2"/}
-                                                恐怖
-                                            {/if}
-                                        </td>
+                                        <td>{$vo.typeName}</td>
                                         <td>操作</td>
                                     </tr>
                                 {/volist}
@@ -121,8 +106,6 @@
     <!-- 全局js -->
     <script src="__HPLUSSTATIC__/js/jquery.min.js?v=2.1.4"></script>
     <script src="__HPLUSSTATIC__/js/bootstrap.min.js?v=3.3.6"></script>
-
-
 
     <script src="__HPLUSSTATIC__/js/plugins/jeditable/jquery.jeditable.js"></script>
 

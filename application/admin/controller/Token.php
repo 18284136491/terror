@@ -8,9 +8,9 @@
 
 namespace app\admin\controller;
 
-use app\common\controller\adminBase;
+use app\common\controller\AdminBase;
 
-class Token extends adminBase
+class Token extends AdminBase
 {
 
     public function index()

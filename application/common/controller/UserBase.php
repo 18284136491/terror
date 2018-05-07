@@ -9,7 +9,7 @@
 namespace app\common\controller;
 
 
-class userBase extends Base
+class UserBase extends Base
 {
     public function _initialize()
     {

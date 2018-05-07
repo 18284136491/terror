@@ -35,6 +35,11 @@ class adminBase extends Controller
             $this->redirect(url('login/index'));
         }
 
+        // 登录时间增加
+        if(!\Cache::setExpire('adminUid'.cookie('userId'), config('_adminExpiration'))){
+            return false;
+        }
+
         // 菜单数据
         $menuData = arrayToTree(model('Menu')->getMenu());
         $this->assign('menu', $menuData);

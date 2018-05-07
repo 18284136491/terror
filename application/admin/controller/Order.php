@@ -8,9 +8,9 @@
 
 namespace app\admin\controller;
 
-use app\common\controller\adminBase;
+use app\common\controller\AdminBase;
 
-class Order extends adminBase
+class Order extends AdminBase
 {
     public function index()
     {

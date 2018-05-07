@@ -4,7 +4,7 @@
  *
  * @param actionUrl 跳转url地址
  */
-function postAjax(actionUrl = '')
+function postAjax(actionUrl = '', parent = '')
 {
     $(document).on('click', '.post-ajax', function(){
         var url = $('form').attr('action');
@@ -22,14 +22,17 @@ function postAjax(actionUrl = '')
                     if(res.code !== 200){
                         layer.msg(res.msg,{time: 1500});
                         return false;
-                    }else if(res.code == 200){
-                        // 返回成功
-                        layer.msg(res.msg,{time: 1500},function(){
-                            if(actionUrl){
+                    }
+                    // 返回成功
+                    layer.msg(res.msg,{time: 1500},function(){
+                        if(actionUrl){
+                            if(parent){
+                                parent.location.reload();
+                            }else{
                                 window.location.href = actionUrl;
                             }
-                        });
-                    }
+                        }
+                    });
                 }
                 return false;
             },
@@ -40,21 +43,52 @@ function postAjax(actionUrl = '')
     })
 }
 
-// 监听回车提交
-$(document).keyup(function(event){
-    if(event.keyCode == 13){
-        for(var i = 0; i < $('input').length; i++){
-            if(!$("input:eq("+i+")").val()){
-                $("input:eq("+i+")").focus();
+// 文件上传
+function postFile(actionUrl)
+{
+        console.log(11)
+    $(document).on('click', '.post-file', function(){
+        console.log(22)
+        var url = $('form').attr('action');
+        var data = new FormData($('#form')[0]);
+        $.ajax({
+            url : url,
+            data : data,
+            type : 'post',
+            dataType : 'json',
+            cache: false,
+            processData: false,
+            contentType: false,
+            success : function(res){
+                // console.log(res);
+                // return ;
+                if(res.code){
+                    // 返回错误代码，提示错误消息
+                    if(res.code !== 200){
+                        layer.msg(res.msg,{time: 1500});
+                        return false;
+                    }
+                    // else if(res.code === 200){
+                    // 返回成功
+                    layer.msg(res.msg,{time: 1500},function(){
+                        if(actionUrl){
+                            parent.location.reload();
+                        }
+                    });
+                    // }
+                }
                 return false;
+            },
+            error : function(){
+                layer.msg('请求失败，请稍后再试',{time: 1000});
             }
-        }
-        $('submit').click();
-    }
-});
+        })
+    });
+    return false;
+}
 
 // 非标单提交方法
-function customPost(url, data='')
+function customPost(url)
 {
     $.ajax({
         url : url,
@@ -66,12 +100,11 @@ function customPost(url, data='')
                 if(res.code !== 200){
                     layer.msg(res.msg,{time: 1500});
                     return false;
-                }else if(res.code == 200){
-                    // 返回成功
-                    layer.msg(res.msg,{time: 1500},function(){
-                        window.location.reload();
-                    });
                 }
+                // 返回成功
+                layer.msg(res.msg,{time: 1500},function(){
+                    window.location.reload();
+                });
             }
         },
         error : function()
@@ -79,8 +112,20 @@ function customPost(url, data='')
             layer.msg('请求失败，请稍后再试',{time: 1000});
         }
     })
-
 }
+
+// 监听回车提交
+$(document).keyup(function(event){
+    if(event.keyCode === 13){
+        for(var i = 0; i < $('input').length; i++){
+            if(!$("input:eq("+i+")").val()){
+                $("input:eq("+i+")").focus();
+                return false;
+            }
+        }
+        $('submit').click();
+    }
+});
 
 // layer 弹出层
 function layerOpend(url, title)
@@ -93,45 +138,6 @@ function layerOpend(url, title)
         maxmin: true,
         content: url
     });
-}
-
-function postFile()
-{
-    $(document).on('click', '.post-file', function(){
-        var url = $('form').attr('action');
-        var data = new FormData($('#form')[0]);
-        $.ajax({
-            url : url,
-            data : data,
-            type : 'post',
-            dataType : 'json',
-            cache: false,
-            processData: false,
-            contentType: false,
-            success : function(res){
-                console.log(res);
-                return ;
-                if(res.code){
-                    // 返回错误代码，提示错误消息
-                    if(res.code !== 200){
-                        layer.msg(res.msg,{time: 1500});
-                        return false;
-                    }else if(res.code == 200){
-                        // 返回成功
-                        layer.msg(res.msg,{time: 1500},function(){
-                            if(actionUrl){
-                                // window.location.href = actionUrl;
-                            }
-                        });
-                    }
-                }
-                return false;
-            },
-            error : function(){
-                layer.msg('请求失败，请稍后再试',{time: 1000});
-            }
-        })
-    })
 }
 
 

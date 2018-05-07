@@ -140,11 +140,14 @@ function checkAdminLogin()
     return true;
 }
 
-
+/**
+ * orderNumber [生成订单号]
+ *
+ * @author dear
+ * @return string
+ */
 function orderNumber()
 {//订购日期
-
-
     //订单号码主体（YYYYMMDDHHIISSNNNNN）
     $order_id_main = date('YmdHis') . rand(10000,99999);
     //订单号码主体长度
