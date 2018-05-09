@@ -10,6 +10,7 @@ namespace app\admin\controller;
 
 use think\Controller;
 use think\Db;
+use \think\Request;
 
 class SignToken extends Controller
 {
@@ -24,7 +25,7 @@ class SignToken extends Controller
      * Author dear
      * @param \think\Request $request
      */
-    public function start(\think\Request $request)
+    public function start(Request $request)
     {
         $param = $request->post();
         if(!isset($param['token']) || !isset($param['key'])){
@@ -46,6 +47,15 @@ class SignToken extends Controller
         ];
         return $res;
     }
+
+
+    public function lottery(Request $request)
+    {
+//        print_r(222222);die;
+        return $this->fetch();
+    }
+
+
 
     /**
      * paramCheck [参数校验]

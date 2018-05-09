@@ -17,6 +17,7 @@ class Token extends AdminBase
     {
         $data = model('token')->getToken();
         foreach($data as &$val){
+            $val['time'] = date('Y-m-d H:i:s', $val['time']);
             $val['status'] = $val['status'] ? '已使用' : '未使用';
         }
 

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>惊心动魄</title>
+    <title>喵啊君</title>
     <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
     <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 
@@ -63,6 +63,7 @@
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-primary btn-lg" onclick="start()">开 始</button>
                 </span>
+                <button type="button" class="btn btn-primary btn-lg" onclick="lottery()">抽奖</button>
             </div>
         </form>
     </div>
@@ -139,7 +140,9 @@
     };
 */
 
-    function start(){
+    // 开始游戏
+    function start()
+    {
         var url = "{:url('/start')}";// 请求地址
         var data = $('form').serialize();// 请求参数
         var type = $('form').attr('method');// 请求方式
@@ -190,13 +193,40 @@
     }
 
     // 切换背景图片
-    function updateImg(imgUrl){
+    function updateImg(imgUrl)
+    {
         $('body').css('background-image','url(__STATIC__/'+imgUrl+')');
     }
 
     // 切换背景音乐
-    function updateMusic(musicUrl){
+    function updateMusic(musicUrl)
+    {
         htmls = '<audio controls="controls" class="hidden" autoplay src="__STATIC__/'+musicUrl+'"></audio>';
         $('.reloads').html(htmls);
     }
+
+    // 抽奖
+    function lottery()
+    {
+
+        $.ajax({
+            url : "{:url('lottery')}",
+            type : 'post',
+            success : function (res){
+                //捕获页
+                layer.open({
+                    type: 1,
+                    shadeClose: true,
+                    shade: false,
+                    title: false,
+                    area: ['80%', '70%'],
+                    closeBtn: 0,
+                    content: res
+                });
+            }
+        })
+
+    }
+
+
 </script>
