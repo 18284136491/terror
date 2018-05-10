@@ -33,7 +33,7 @@ class SignToken extends Controller
         }
 
         // 验证token和key
-        $this->paramCheck($param);
+//        $this->paramCheck($param);
 
         $map = '';
         $map = 'status = 1';
